@@ -1,0 +1,97 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@source "../../../node_modules/.cache/nuxt/.nuxt/content";
+
+/*
+ * The ark4ne design system: one neutral, one type scale, one radius. Each library only changes the
+ * accent (`primary`), from the `color` of its lib.yml.
+ */
+@theme static {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --ui-radius: 0.375rem;
+  --ui-header-height: 4rem;
+}
+
+.dark {
+  --ui-bg: var(--ui-color-neutral-950);
+}
+
+/*
+ * Mermaid diagrams (rendered at build time, see modules/mermaid.ts) read their colours from these
+ * properties, so they follow the theme, the dark mode and the library's accent.
+ */
+.mermaid-diagram {
+  --mermaid-fontFamily: var(--font-sans);
+  --mermaid-fontSize: 14px;
+  --mermaid-dropShadow: none;
+  --mermaid-strokeWidth: 1.5px;
+
+  --mermaid-mainBkg: var(--ui-bg-elevated);
+  --mermaid-primaryColor: var(--ui-bg-elevated);
+  --mermaid-primaryBorderColor: var(--ui-primary);
+  --mermaid-nodeBorder: var(--ui-primary);
+  --mermaid-background: var(--ui-bg);
+  --mermaid-secondaryColor: var(--ui-bg-accented);
+  --mermaid-tertiaryColor: var(--ui-bg-muted);
+  --mermaid-tertiaryBorderColor: var(--ui-border-accented);
+  --mermaid-clusterBkg: var(--ui-bg-muted);
+  --mermaid-clusterBorder: var(--ui-border-accented);
+  --mermaid-clusterStrokeWidth: 1px;
+  --mermaid-edgeLabelBackground: var(--ui-bg);
+  --mermaid-labelTextColor: var(--ui-text-highlighted);
+
+  /* State: composite states */
+  --mermaid-compositeBackground: var(--ui-bg-muted);
+  --mermaid-compositeTitleBackground: var(--ui-bg-accented);
+  --mermaid-altBackground: var(--ui-bg-muted);
+
+  --mermaid-textColor: var(--ui-text-highlighted);
+  --mermaid-primaryTextColor: var(--ui-text-highlighted);
+  --mermaid-nodeTextColor: var(--ui-text-highlighted);
+  --mermaid-titleColor: var(--ui-text-highlighted);
+  --mermaid-classText: var(--ui-text-highlighted);
+
+  --mermaid-lineColor: var(--ui-text-muted);
+  --mermaid-arrowheadColor: var(--ui-text-muted);
+  --mermaid-gridColor: var(--ui-border);
+
+  /* Sequence */
+  --mermaid-actorBkg: var(--ui-bg-elevated);
+  --mermaid-actorBorder: var(--ui-primary);
+  --mermaid-actorTextColor: var(--ui-text-highlighted);
+  --mermaid-actorLineColor: var(--ui-border-accented);
+  --mermaid-signalColor: var(--ui-text-muted);
+  --mermaid-signalTextColor: var(--ui-text-highlighted);
+  --mermaid-noteBkgColor: var(--ui-bg-accented);
+  --mermaid-noteBorderColor: var(--ui-border-accented);
+  --mermaid-noteTextColor: var(--ui-text);
+  --mermaid-labelBoxBkgColor: var(--ui-bg-accented);
+  --mermaid-labelBoxBorderColor: var(--ui-border-accented);
+  --mermaid-loopTextColor: var(--ui-text-muted);
+
+  /* ER */
+  --mermaid-erMarkerFill: var(--ui-text-muted);
+  --mermaid-erEdgeLabelBackground: var(--ui-bg);
+
+  /* Gantt */
+  --mermaid-taskBkgColor: color-mix(in oklab, var(--ui-primary) 25%, var(--ui-bg));
+  --mermaid-taskBorderColor: var(--ui-primary);
+  --mermaid-taskTextColor: var(--ui-text-highlighted);
+  --mermaid-sectionBkgColor: var(--ui-bg-muted);
+
+  /* Pie */
+  --mermaid-pie1: var(--ui-primary);
+  --mermaid-pie2: color-mix(in oklab, var(--ui-primary) 55%, var(--ui-bg));
+  --mermaid-pieStrokeColor: var(--ui-bg);
+  --mermaid-pieOuterStrokeColor: var(--ui-border);
+  --mermaid-pieSectionTextColor: var(--ui-text-highlighted);
+  --mermaid-pieLegendTextColor: var(--ui-text);
+}
+
+/* Every accent a lib.yml may choose, so a library card can wear its own colour outside its pages. */
+@source inline("text-{red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-500");

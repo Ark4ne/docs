@@ -1,0 +1,12 @@
+# Identity of the library, read by the ark4ne documentation portal.
+name: Example Library
+package: ark4ne/example-library
+tagline: One sentence saying what the library does for its user.
+icon: i-lucide-box
+color: teal
+order: 100
+compatibility:
+  - { version: '2.x', php: '^8.3', laravel: '^13.0', status: active }
+  - { version: '1.x', php: '^8.2', laravel: '^12.0', status: security }
+related: []
+links: []

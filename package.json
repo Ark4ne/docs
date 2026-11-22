@@ -1,0 +1,37 @@
+{
+  "name": "ark4ne-docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "check": "node scripts/check-contract.ts",
+    "dev:local": "DOCS_SOURCE=local nuxt dev",
+    "dev:example": "DOCS_EXAMPLE=1 DOCS_ONLY=none nuxt dev"
+  },
+  "dependencies": {
+    "@nuxt/content": "3.17.0",
+    "@nuxt/ui": "4.13.0",
+    "better-sqlite3": "^13.2.0",
+    "mermaid": "13.0.0-alpha.3",
+    "nuxt": "4.6.4",
+    "nuxt-llms": "0.3.2",
+    "tailwindcss": "^4.3.5",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "volta": {
+    "node": "24.15.0",
+    "pnpm": "11.10.0"
+  },
+  "packageManager": "pnpm@11.10.0",
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.3.14"
+  }
+}

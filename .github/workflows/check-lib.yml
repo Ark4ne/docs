@@ -1,0 +1,49 @@
+name: Check library documentation
+
+# Reusable: a library calls it on its pull requests to check its docs/site against the contract and
+# build its pages with the real theme, exactly as the portal will.
+#
+#   jobs:
+#     docs:
+#       uses: Ark4ne/docs/.github/workflows/check-lib.yml@main
+#       with:
+#         slug: laravel-openapi-generator
+on:
+  workflow_call:
+    inputs:
+      slug:
+        description: The library's slug in libs.config.ts.
+        required: true
+        type: string
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: ${{ inputs.slug }}
+      - uses: actions/checkout@v5
+        with:
+          repository: Ark4ne/docs
+          path: portal
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: portal/package.json
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: portal/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: portal
+      - name: Contract
+        run: node scripts/check-contract.ts "$GITHUB_WORKSPACE/${{ inputs.slug }}" "${{ inputs.slug }}"
+        working-directory: portal
+      - name: Build the library's pages
+        run: pnpm generate
+        working-directory: portal
+        env:
+          DOCS_SOURCE: local
+          DOCS_LOCAL_ROOT: ${{ github.workspace }}
+          DOCS_ONLY: ${{ inputs.slug }}
