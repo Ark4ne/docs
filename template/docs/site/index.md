@@ -6,31 +6,9 @@ description: Example Library turns something you already have into something you
 <!--
   Optional: the home page of the library, at /<slug>. Delete this file and /<slug> opens the introduction.
   The portal draws the hero from lib.yml (name, tagline, icon, version, install command, Get started and GitHub)
-  and ends with the libraries of `related`: this page only writes the sections in between.
+  and ends with a call to action and the libraries of `related`: this page only writes what is in between.
+  The demo before the first ## goes into the hero, beside the name.
 -->
-
-## Why Example Library
-
-The problem in the reader's words, and the promise of the library, in two sentences.
-
-::card-group
-:::card{title="First feature" icon="i-lucide-zap" to="/example/getting-started/quick-start"}
-One line on what it brings, linked to the page that shows it.
-:::
-:::card{title="Second feature" icon="i-lucide-shield-check" to="/example/guides/a-use-case"}
-One line on what it brings, linked to the page that shows it.
-:::
-:::card{title="Third feature" icon="i-lucide-gauge" to="/example/reference/configuration"}
-One line on what it brings, linked to the page that shows it.
-:::
-:::card{title="Fourth feature" icon="i-lucide-puzzle" to="/example/getting-started/installation"}
-One line on what it brings, linked to the page that shows it.
-:::
-::
-
-## In one example
-
-What you write, and what you get.
 
 ::example{input="app/Http/Resources/UserResource.php" output="GET /users/1"}
 #input
@@ -53,6 +31,25 @@ final class UserResource extends JsonApiResource
   }
 }
 ```
+::
+
+## Why Example Library
+
+The problem in the reader's words, and the promise of the library, in two sentences.
+
+::card-group
+:::card{title="First feature" icon="i-lucide-zap" to="/example/getting-started/quick-start"}
+One line on what it brings, linked to the page that shows it.
+:::
+:::card{title="Second feature" icon="i-lucide-shield-check" to="/example/guides/a-use-case"}
+One line on what it brings, linked to the page that shows it.
+:::
+:::card{title="Third feature" icon="i-lucide-gauge" to="/example/reference/configuration"}
+One line on what it brings, linked to the page that shows it.
+:::
+:::card{title="Fourth feature" icon="i-lucide-puzzle" to="/example/getting-started/installation"}
+One line on what it brings, linked to the page that shows it.
+:::
 ::
 
 ## Compatibility

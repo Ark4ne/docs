@@ -71,7 +71,10 @@ to the docs.
   the libraries of `related`. The page writes only the sections in between: do not repeat the name, the
   tagline, the install command or a "get started" section.
 - Front matter: `title` and `description`, as every page (the description is the page's meta description).
-- Each `##` starts a section, laid out by what it holds; every other section sits on a tinted band.
+- A demo (`::example`, `::http-call` or `::code-group`) written before the first `##` goes into the hero,
+  beside the name: the one example that shows what the library does. Keep it short (about 20 lines in all).
+- Each `##` starts a numbered section, laid out by what it holds; every other section sits on a tinted band,
+  and the sections below the fold rise into view on scroll.
   - With a demo (`::example`, `::http-call`, `::code-group`): the heading, its paragraph and any `::tip` or
     `::note` on the left, the demo on the right. Keep that text short: two lines and a tip at most.
   - With `::card-group`: heading and subtitle centred, the cards on one row (two to four).
