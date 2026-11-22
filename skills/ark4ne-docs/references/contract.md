@@ -63,13 +63,19 @@ Pick a colour no other library uses. Keep `compatibility` in step with `composer
 ## Home page
 
 `docs/site/index.md` is optional. When it exists, `/<slug>` shows it instead of opening the introduction, and
-the library cards and the library switcher of the portal lead to it; *Get started* and the docs' links lead to the docs.
+the library cards and the library switcher of the portal lead to it; *Get started* and the docs' links lead
+to the docs.
 
-- The portal draws the hero from `lib.yml`: icon, version, name, tagline, the `composer require` command, a
-  *Get started* button (the introduction) and GitHub. It ends the page with the libraries of `related`. The
-  page writes only the sections in between: do not repeat the name, the tagline or the install command.
+- The portal draws the hero from `lib.yml`: version (linked to the changelog), name, tagline, *Get started*
+  (the introduction), GitHub and a copyable `composer require`. It ends the page with a call to action and
+  the libraries of `related`. The page writes only the sections in between: do not repeat the name, the
+  tagline, the install command or a "get started" section.
 - Front matter: `title` and `description`, as every page (the description is the page's meta description).
-- Each `##` is a centred section; the paragraph right after it is its subtitle.
+- Each `##` starts a section, laid out by what it holds; every other section sits on a tinted band.
+  - With a demo (`::example`, `::http-call`, `::code-group`): the heading, its paragraph and any `::tip` or
+    `::note` on the left, the demo on the right. Keep that text short: two lines and a tip at most.
+  - With `::card-group`: heading and subtitle centred, the cards on one row (two to four).
+  - Otherwise (compatibility): centred.
 - Components: `::card-group` / `::card`, `::example`, `::http-call`, `::code-group`, `::compatibility`,
   `::install`, `::lib-card`, `::note`, `::tip`. The check fails on any other.
 - It is not in the sidebar nor in previous/next; the sidebar shows an *Overview* link back to it.
