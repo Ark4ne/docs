@@ -16,7 +16,7 @@
  * ::
  *
  * `side` puts the two panels next to each other from `lg` up, for short pairs only: the content column is
- * about 760px, so each side gets about 370px and longer lines wrap.
+ * about 870px on a wide screen, so each side gets about 430px and longer lines wrap.
  */
 withDefaults(defineProps<{ input?: string, output?: string, side?: boolean }>(), {
   input: 'Input',
