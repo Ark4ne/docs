@@ -99,7 +99,8 @@ Every folder needs one; without it the group shows the folder name.
   link to a page that does not exist in the library.
 - To another library: `/<other-slug>/…`, or `:lib-card{slug="openapi-writer"}` for a card.
   Such a link is checked only in the full portal build: when your library is built alone (`DOCS_ONLY`, as in
-  CI), it leads to that library's placeholder page. Copy the URL from the live page of the other library.
+  CI), or while the other library's documentation is not merged on its default branch yet, it leads to that
+  library's placeholder page. Copy the URL from the live page, or the merged pages, of the other library.
 - Never `./page.md` or a relative path: files are numbered, URLs are not.
 - Images: put them under `public/` of the portal only if shared; otherwise prefer a code block or a Mermaid
   diagram (see `components.md`).

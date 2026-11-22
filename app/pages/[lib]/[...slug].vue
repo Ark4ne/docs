@@ -23,7 +23,13 @@ const { data: navigation } = useLibNavigation(lib)
 const { data: page } = await useAsyncData(route.path, async () =>
   lib.value ? await queryCollection(lib.value.collection).path(route.path).first() as LibPage | null : null,
 )
-if (!lib.value || !page.value) {
+// Same for a library in this build that has not published yet (no lib.yml on its default branch): a deep link
+// from a library merged first leads to the placeholder, until the other one is merged too.
+const { registry } = useRuntimeConfig().public as unknown as { registry: { slug: string }[] }
+if (!lib.value && registry.some(item => item.slug === route.params.lib)) {
+  await navigateTo(`/${String(route.params.lib)}`, { redirectCode: 302 })
+}
+else if (!lib.value || !page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
 
@@ -38,12 +44,14 @@ const section = computed(() => {
   return crumbs.at(-1)?.title
 })
 
-useSeoMeta({
-  title: `${page.value.title} — ${lib.value.name}`,
-  description: page.value.description || lib.value.tagline,
-  ogTitle: `${page.value.title} — ${lib.value.name}`,
-  ogDescription: page.value.description || lib.value.tagline,
-})
+if (page.value && lib.value) {
+  useSeoMeta({
+    title: `${page.value.title} — ${lib.value.name}`,
+    description: page.value.description || lib.value.tagline,
+    ogTitle: `${page.value.title} — ${lib.value.name}`,
+    ogDescription: page.value.description || lib.value.tagline,
+  })
+}
 
 /** The file behind the page in the library's repository, so a fix is one click away. */
 const editUrl = computed(() => {
