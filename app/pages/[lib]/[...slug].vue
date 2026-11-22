@@ -2,7 +2,19 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageBreadcrumb } from '@nuxt/content/utils'
 
-definePageMeta({ layout: 'docs' })
+definePageMeta({
+  layout: 'docs',
+  // A page of a registered library left out of this build (DOCS_ONLY, or not published yet) leads to its
+  // placeholder at /<slug>: a deep link from another library is not a dead link, and a library's CI, which
+  // builds that library alone, does not fail on it. Real dead links are caught by `pnpm check`.
+  middleware: (to) => {
+    const { libs, registry } = useRuntimeConfig().public as unknown as { libs: { slug: string }[], registry: { slug: string }[] }
+    const slug = String(to.params.lib)
+    if (!libs.some(lib => lib.slug === slug) && registry.some(lib => lib.slug === slug)) {
+      return navigateTo(`/${slug}`, { redirectCode: 302 })
+    }
+  },
+})
 
 const route = useRoute()
 const lib = useCurrentLib()
@@ -16,7 +28,9 @@ if (!lib.value || !page.value) {
 }
 
 const { data: surround } = await useAsyncData(`${route.path}-surround`, () =>
-  queryCollectionItemSurroundings(lib.value!.collection, route.path, { fields: ['description'] }),
+  // The home page is the library's root, not the page before its introduction.
+  queryCollectionItemSurroundings(lib.value!.collection, route.path, { fields: ['description'] })
+    .where('path', '<>', `/${lib.value!.slug}`),
 )
 
 const section = computed(() => {
@@ -87,7 +101,7 @@ const related = computed(() => libs.value.filter(item => lib.value?.related.incl
             <USeparator type="dashed" class="my-4" />
             <UPageLinks
               title="Works with"
-              :links="related.map(item => ({ label: item.name, icon: item.icon, to: item.entry }))"
+              :links="related.map(item => ({ label: item.name, icon: item.icon, to: item.home ?? item.entry }))"
             />
           </template>
         </template>

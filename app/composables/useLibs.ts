@@ -18,6 +18,8 @@ export interface Lib extends LibMeta {
   collection: keyof PageCollections
   /** Its introduction: where links to the library lead (a link the prerender crawler can follow). */
   entry: string
+  /** Its home page (`docs/site/index.md`), when the library writes one: where the landing cards lead. */
+  home: string | null
   /** Latest stable version on Packagist, resolved at build time; null when Packagist cannot tell. */
   version: string | null
 }
@@ -50,11 +52,13 @@ export function useLibs() {
       if (!meta) return null
       const entry = await queryCollection(collection as keyof PageCollections)
         .where('path', 'LIKE', '%/introduction').select('path').first()
+      const home = await queryCollection(collection as keyof PageCollections).path(`/${source.slug}`).select('path').first()
       return {
         ...meta,
         ...source,
         collection: collection as keyof PageCollections,
         entry: entry?.path ?? `/${source.slug}`,
+        home: home?.path ?? null,
         version: await packageVersion(meta.package),
       }
     }))
@@ -79,7 +83,9 @@ export function useLibNavigation(lib: Ref<Lib | undefined>) {
   return useAsyncData(() => `navigation-${lib.value?.slug}`, async () => {
     if (!lib.value) return [] as ContentNavigationItem[]
     const tree = await queryCollectionNavigation(lib.value.collection, ['since', 'experimental'])
-    const root = tree.find(item => item.path === `/${lib.value!.slug}`)?.children ?? tree
+    // The home page (index.md) is the library's root, not a page of its documentation.
+    const root = (tree.find(item => item.path === `/${lib.value!.slug}`)?.children ?? tree)
+      .filter(item => item.path !== `/${lib.value!.slug}`)
     const isRelease = (item: ContentNavigationItem) => releasePages.includes(item.path.split('/').pop() ?? '')
     const releases = root.filter(isRelease)
       .sort((a, b) => releasePages.indexOf(a.path.split('/').pop()!) - releasePages.indexOf(b.path.split('/').pop()!))

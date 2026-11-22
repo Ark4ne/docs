@@ -14,7 +14,7 @@ const accent = computed(() => `text-${lib.value?.color}-500`)
     :title="lib.name"
     :description="lib.tagline"
     :icon="lib.icon"
-    :to="lib.entry"
+    :to="lib.home ?? lib.entry"
     spotlight
     :ui="{ leadingIcon: accent }"
     class="not-prose"

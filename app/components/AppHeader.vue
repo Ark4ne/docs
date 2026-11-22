@@ -7,7 +7,7 @@ const switcher = computed(() => [libs.value.map(item => ({
   label: item.name,
   description: item.tagline,
   icon: item.icon,
-  to: item.entry,
+  to: item.home ?? item.entry,
   active: item.slug === lib.value?.slug,
 }))])
 
@@ -69,7 +69,7 @@ const repository = computed(() => lib.value ? `https://github.com/${lib.value.re
       <UNavigationMenu
         v-else-if="!lib"
         orientation="vertical"
-        :items="libs.map(item => ({ label: item.name, icon: item.icon, to: item.entry }))"
+        :items="libs.map(item => ({ label: item.name, icon: item.icon, to: item.home ?? item.entry }))"
       />
     </template>
   </UHeader>

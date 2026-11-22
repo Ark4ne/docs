@@ -28,6 +28,7 @@ Read `references/contract.md` before writing; `pnpm check` in the portal enforce
 
 - **Shared**: the layout, the components, `lib.yml`, the *Getting started* group with `introduction` and
   `installation`, and the *Releases* group the portal builds from `UPGRADE.md` and `CHANGELOG.md`.
+- **Optional**: a home page, `docs/site/index.md`, at `/<slug>`; the portal draws its hero from `lib.yml`.
 - **Free**: every other section, its title, order and depth. Two libraries are used differently, so their
   menus differ: design the navigation from what *this* library's users do, not from another library.
 - Every page has a `title` and a `description` in front matter, and no `# ` heading (the title is rendered).
@@ -46,7 +47,8 @@ Read `references/contract.md` before writing; `pnpm check` in the portal enforce
 2. **Design the navigation** (see `references/writing.md`): list what a user comes to do, group it into
    sections, order them from first use to advanced. Show the proposed tree to the user and wait for their
    agreement before writing pages.
-3. **Start from the template**: copy `template/docs/site` from the portal, then delete what does not apply.
+3. **Start from the template**: copy `template/docs/site` from the portal, then delete what does not apply
+   (`index.md`, the home page, is optional).
    Fill `lib.yml` (`references/contract.md`).
 4. **Write the pages**, getting started first. Use the components of `references/components.md`; take code
    from the tests and fixtures, never invent an API — check every class, method and option name in `src/`.

@@ -34,6 +34,9 @@ function routeOf(file: string): string {
 
 const phpWidth = 80
 
+/** What a home page (docs/site/index.md) may use: the portal draws its hero, so its sections stay alike. */
+const homeComponents = ['card-group', 'card', 'example', 'http-call', 'code-group', 'compatibility', 'install', 'lib-card', 'note', 'tip']
+
 /**
  * Line numbers of the PHP code lines wider than `phpWidth`. A fence may be indented (in a list item or a
  * component slot): its indentation is not part of the code, so it is not counted.
@@ -125,7 +128,16 @@ for (const file of pages) {
     errors.push(`${name}:${line}: PHP line longer than ${phpWidth} columns; wrap it (one argument per line, chains before ->).`)
   }
 
-  for (const [, target] of source.matchAll(/\]\(([^)\s]+)\)/g)) {
+  if (name === 'docs/site/index.md') {
+    for (const match of source.replace(/```[\s\S]*?```/g, '').matchAll(/^\s*:{2,}([a-z][\w-]*)/gm)) {
+      if (!homeComponents.includes(match[1])) {
+        errors.push(`${name}: "::${match[1]}" is not available on a home page; use ${homeComponents.map(c => `::${c}`).join(', ')}.`)
+      }
+    }
+  }
+
+  // Markdown links, and the `to` of components (cards).
+  for (const [, target] of [...source.matchAll(/\]\(([^)\s]+)\)/g), ...source.matchAll(/\bto="([^"]+)"/g)]) {
     if (/^(https?:|mailto:|#)/.test(target)) continue
     if (target.endsWith('.md') || target.startsWith('.')) {
       errors.push(`${name}: link "${target}" must be an absolute portal path such as /${slug}/guides/…`)

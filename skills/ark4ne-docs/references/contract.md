@@ -7,6 +7,7 @@ What the portal relies on. `node scripts/check-contract.ts <library> [slug]` (or
 | Path (in the library) | Role |
 |---|---|
 | `docs/site/lib.yml` | Identity of the library. Without it the library is not shown. |
+| `docs/site/index.md` | Optional home page, at `/<slug>` (see *Home page*). |
 | `docs/site/**/*.md` | Pages. |
 | `docs/site/**/.navigation.yml` | Title and icon of the folder's navigation group. |
 | `CHANGELOG.md` | Rendered as `/<slug>/changelog`, in the *Releases* group. |
@@ -38,9 +39,9 @@ Pick a colour no other library uses. Keep `compatibility` in step with `composer
 
 - File names: `<order>.<name>.md`; the number orders the navigation and disappears from the URL
   (`2.guides/3.responses.md` → `/<slug>/guides/responses`). Folders follow the same rule.
-- `index.md` in a folder is the folder's own page.
+- `index.md` in a folder is the folder's own page; `docs/site/index.md` is the home page (below).
 - **Required**: a page named `introduction` and one named `installation`, in a first group titled
-  *Getting started*. `/<slug>` opens the introduction.
+  *Getting started*. Without a home page, `/<slug>` opens the introduction.
 - Front matter:
 
   ```yaml
@@ -59,6 +60,21 @@ Pick a colour no other library uses. Keep `compatibility` in step with `composer
 
 - Body headings start at `##`. `##` and `###` build the "On this page" outline and the search index.
 
+## Home page
+
+`docs/site/index.md` is optional. When it exists, `/<slug>` shows it instead of opening the introduction, and
+the library cards and the library switcher of the portal lead to it; *Get started* and the docs' links lead to the docs.
+
+- The portal draws the hero from `lib.yml`: icon, version, name, tagline, the `composer require` command, a
+  *Get started* button (the introduction) and GitHub. It ends the page with the libraries of `related`. The
+  page writes only the sections in between: do not repeat the name, the tagline or the install command.
+- Front matter: `title` and `description`, as every page (the description is the page's meta description).
+- Each `##` is a centred section; the paragraph right after it is its subtitle.
+- Components: `::card-group` / `::card`, `::example`, `::http-call`, `::code-group`, `::compatibility`,
+  `::install`, `::lib-card`, `::note`, `::tip`. The check fails on any other.
+- It is not in the sidebar nor in previous/next; the sidebar shows an *Overview* link back to it.
+- The check also verifies the `to="…"` of cards, like any link.
+
 ## .navigation.yml
 
 ```yaml
@@ -73,6 +89,8 @@ Every folder needs one; without it the group shows the folder name.
 - Between pages: absolute portal paths, `/<slug>/<section>/<page>` (`#anchor` allowed). The check fails on a
   link to a page that does not exist in the library.
 - To another library: `/<other-slug>/…`, or `:lib-card{slug="openapi-writer"}` for a card.
+  Such a link is checked only in the full portal build: when your library is built alone (`DOCS_ONLY`, as in
+  CI), it leads to that library's placeholder page. Copy the URL from the live page of the other library.
 - Never `./page.md` or a relative path: files are numbered, URLs are not.
 - Images: put them under `public/` of the portal only if shared; otherwise prefer a code block or a Mermaid
   diagram (see `components.md`).

@@ -52,7 +52,7 @@ const scopedNavigation = computed(() => navigation.value.filter(tree => inScope(
 const groups = computed(() => [{
   id: 'libraries',
   label: 'Libraries',
-  items: libs.value.map(item => ({ label: item.name, icon: item.icon, to: item.entry, suffix: item.tagline })),
+  items: libs.value.map(item => ({ label: item.name, icon: item.icon, to: item.home ?? item.entry, suffix: item.tagline })),
 }])
 
 </script>

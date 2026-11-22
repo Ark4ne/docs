@@ -28,6 +28,11 @@ Do not mix them on one page.
 | Concept | "How does it think?" | Explanation, a Mermaid diagram or a table, links to guides. |
 | Reference | "What exactly does X accept?" | Exhaustive, terse, `::field-group`, no narrative. |
 | Integration | "How does it work with Y?" | Lives in the library that does the integrating; links to Y. |
+| Home page (optional) | "Why this library?" | Three or four short sections: the problem and the promise, the features as cards (two to four, on one row on wide screens, each linked to the page that shows it), one `::example`, compatibility. |
+
+The home page sells, the introduction explains. Keep them apart: the home page never explains a concept, and
+the introduction does not repeat the feature cards. A library with little to show first does without a home
+page: `/<slug>` then opens the introduction.
 
 ## Style
 
