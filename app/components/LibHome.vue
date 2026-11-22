@@ -89,8 +89,8 @@ onMounted(() => {
   <div ref="root" class="home">
     <!-- Built from lib.yml: every library's home opens the same way, only the accent changes. -->
     <section class="relative isolate overflow-hidden border-b border-default">
-      <div class="home-grid absolute inset-0 -z-10" aria-hidden="true" />
-      <div class="home-glow absolute inset-x-0 top-0 -z-10 h-[36rem]" aria-hidden="true" />
+      <div class="hero-grid absolute inset-0 -z-10" aria-hidden="true" />
+      <div class="hero-glow absolute inset-x-0 top-0 -z-10 h-[36rem]" aria-hidden="true" />
 
       <UContainer
         class="py-20 sm:py-28 lg:py-32"
@@ -111,7 +111,7 @@ onMounted(() => {
           </ULink>
 
           <h1
-            class="home-title font-bold tracking-tight text-balance"
+            class="hero-title font-bold tracking-tight text-balance"
             :class="content.hero ? 'text-5xl sm:text-6xl' : 'text-5xl sm:text-6xl lg:text-7xl'"
           >
             {{ lib.name }}
@@ -168,7 +168,7 @@ onMounted(() => {
     </section>
 
     <section class="relative isolate overflow-hidden border-t border-default py-20 text-center sm:py-24">
-      <div class="home-glow home-glow-bottom absolute inset-0 -z-10" aria-hidden="true" />
+      <div class="hero-glow hero-glow-bottom absolute inset-0 -z-10" aria-hidden="true" />
       <UContainer class="flex flex-col items-center" data-reveal>
         <h2 class="text-3xl font-bold tracking-tight text-highlighted sm:text-4xl">
           Start with {{ lib.name }}
@@ -196,28 +196,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Hero: a fading grid and a glow of the library's accent. */
-.home-grid {
-  background-image:
-    linear-gradient(to right, var(--ui-border) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--ui-border) 1px, transparent 1px);
-  background-size: 3rem 3rem;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
-}
-.home-glow {
-  background: radial-gradient(ellipse 60% 55% at 50% 0%, color-mix(in oklab, var(--ui-primary) 22%, transparent), transparent 70%);
-}
-.home-glow-bottom {
-  background: radial-gradient(ellipse 50% 80% at 50% 100%, color-mix(in oklab, var(--ui-primary) 16%, transparent), transparent 70%);
-}
-.home-title {
-  background: linear-gradient(180deg, var(--ui-text-highlighted) 40%, color-mix(in oklab, var(--ui-primary) 70%, var(--ui-text-highlighted)));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  padding-bottom: 0.1em;
-}
-
 /* Sections: every other one on a band, so the page alternates. */
 .home-band {
   background: color-mix(in oklab, var(--ui-bg-elevated) 55%, transparent);

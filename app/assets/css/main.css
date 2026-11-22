@@ -95,5 +95,28 @@
   --mermaid-pieLegendTextColor: var(--ui-text);
 }
 
+/* Heroes (the portal's and each library's home page): a fading grid and a glow of the accent. */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, var(--ui-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--ui-border) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+.hero-glow {
+  background: radial-gradient(ellipse 60% 55% at 50% 0%, color-mix(in oklab, var(--ui-primary) 22%, transparent), transparent 70%);
+}
+.hero-glow-bottom {
+  background: radial-gradient(ellipse 50% 80% at 50% 100%, color-mix(in oklab, var(--ui-primary) 16%, transparent), transparent 70%);
+}
+.hero-title {
+  background: linear-gradient(180deg, var(--ui-text-highlighted) 40%, color-mix(in oklab, var(--ui-primary) 70%, var(--ui-text-highlighted)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.1em;
+}
+
 /* Every accent a lib.yml may choose, so a library card can wear its own colour outside its pages. */
-@source inline("text-{red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-500");
+@source inline("{text,bg,from}-{red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-500{,/10,/15}");
+@source inline("hover:border-{red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-500/50");
