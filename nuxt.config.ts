@@ -1,6 +1,8 @@
 import { enabledLibs, libs as registry } from './libs.config'
 
 const site = process.env.DOCS_URL ?? 'https://docs.ark4ne.dev'
+/** The path the site is served under: `/docs/` on GitHub Pages (https://ark4ne.github.io/docs), `/` on a domain. */
+const base = new URL(site).pathname.replace(/\/?$/, '/')
 const libs = enabledLibs()
 
 export default defineNuxtConfig({
@@ -10,9 +12,10 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   app: {
+    baseURL: base,
     head: {
       htmlAttrs: { lang: 'en' },
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      link: [{ rel: 'icon', type: 'image/svg+xml', href: `${base}favicon.svg` }],
     },
   },
 

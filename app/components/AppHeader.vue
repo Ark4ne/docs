@@ -28,7 +28,7 @@ const repository = computed(() => lib.value ? `https://github.com/${lib.value.re
             aria-label="ark4ne, all libraries"
             class="flex shrink-0 items-center gap-2 rounded-md text-muted transition-colors hover:text-highlighted"
           >
-            <img src="/favicon.svg" alt="" :class="'size-5 opacity-80'">
+            <img :src="`${useRuntimeConfig().app.baseURL}favicon.svg`" alt="" :class="'size-5 opacity-80'">
             <span :class="'text-sm font-semibold text-highlighted'">ark4ne</span>
           </ULink>
         </UTooltip>

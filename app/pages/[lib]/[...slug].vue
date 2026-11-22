@@ -61,7 +61,7 @@ const editUrl = computed(() => {
 
 const toast = useToast()
 async function copyMarkdown() {
-  await navigator.clipboard.writeText(await $fetch<string>(`/raw${route.path}.md`, { responseType: 'text' }))
+  await navigator.clipboard.writeText(await $fetch<string>(`/raw${route.path}.md`, { baseURL: useRuntimeConfig().app.baseURL, responseType: 'text' }))
   toast.add({ title: 'Markdown copied', icon: 'i-lucide-check', color: 'success' })
 }
 

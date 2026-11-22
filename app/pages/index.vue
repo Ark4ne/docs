@@ -4,6 +4,8 @@
  * related libraries): nothing about a library is written here.
  */
 const { data: libs } = useLibs()
+/** Resolved, not a string: <component :is> does not resolve a component by name. */
+const ULink = resolveComponent('ULink')
 
 useSeoMeta({
   title: 'Laravel and PHP libraries',
@@ -137,10 +139,10 @@ const features = [
 
         <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           <component
-            :is="feature.to ? 'a' : 'div'"
+            :is="feature.to ? ULink : 'div'"
             v-for="feature in features"
             :key="feature.title"
-            :href="feature.to"
+            :to="feature.to"
             :target="feature.to ? '_blank' : undefined"
             class="rounded-xl border border-default bg-default p-6 transition duration-200"
             :class="feature.to && 'hover:-translate-y-0.5 hover:border-primary/50'"
