@@ -86,7 +86,7 @@ const related = computed(() => libs.value.filter(item => lib.value?.related.incl
     </UPageBody>
 
     <template v-if="page.body?.toc?.links?.length" #right>
-      <UContentToc :links="page.body.toc.links" title="On this page" highlight>
+      <UContentToc :links="page.body.toc.links" title="On this page" highlight highlight-variant="circuit">
         <template #bottom>
           <USeparator type="dashed" class="my-4" />
           <UPageLinks
