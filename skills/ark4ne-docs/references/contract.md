@@ -10,7 +10,7 @@ What the portal relies on. `node scripts/check-contract.ts <library> [slug]` (or
 | `docs/site/index.md` | Optional home page, at `/<slug>` (see *Home page*). |
 | `docs/site/**/*.md` | Pages. |
 | `docs/site/**/.navigation.yml` | Title and icon of the folder's navigation group. |
-| `CHANGELOG.md` | Rendered as `/<slug>/changelog`, in the *Releases* group. |
+| `CHANGELOG.md` | Rendered as `/<slug>/changelog`, in the *Releases* group, as a timeline: keep the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format, one `## [1.2.0] - 2026-11-18` per release (the date goes beside it, the newest is marked *Latest*) and `### Added`, `### Changed`… inside. `# Changelog` and its first paragraph become the page title and description; an empty `## [Unreleased]` is not shown. |
 | `UPGRADE.md` | Rendered as `/<slug>/upgrade` (*Upgrade guide*), in the *Releases* group. |
 
 The `slug` is the repository name (`laravel-openapi-generator`); it is set in the portal's `libs.config.ts`.

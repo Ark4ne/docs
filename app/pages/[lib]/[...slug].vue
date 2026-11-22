@@ -80,7 +80,9 @@ const related = computed(() => libs.value.filter(item => lib.value?.related.incl
     </UPageHeader>
 
     <UPageBody>
-      <ContentRenderer :value="page" />
+      <!-- CHANGELOG.md, rendered at /<slug>/changelog, reads as a timeline of releases. -->
+      <LibChangelog v-if="page.path === `/${lib.slug}/changelog`" :page="page" />
+      <ContentRenderer v-else :value="page" />
       <USeparator v-if="surround?.length" />
       <UContentSurround :surround="surround" />
     </UPageBody>
