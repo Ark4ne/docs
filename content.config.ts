@@ -8,14 +8,22 @@ import { libMetaSchema } from './shared/lib-meta'
 const localRoot = resolve(process.env.DOCS_LOCAL_ROOT ?? '..')
 const preferLocal = process.env.DOCS_SOURCE === 'local'
 
-/** Where a library's files are read from: its sibling checkout in local mode, GitHub otherwise. */
+/**
+ * Where a library's files are read from: its checkout in local mode, GitHub otherwise. The checkout is
+ * `<root>/<local>` (sibling clones on a machine) or `<root>/<slug>` (where check-lib.yml puts the library in
+ * CI). Locally a missing checkout falls back to GitHub; in CI it fails, so a pull request is never checked
+ * against the default branch by mistake.
+ */
 function origin(lib: LibSource): Pick<CollectionSource, 'cwd' | 'repository'> {
   if (lib === example) {
     return { cwd: resolve(lib.local) }
   }
-  const local = resolve(localRoot, lib.local)
-  console.log(`docs: ${lib.slug} source: ${preferLocal ? 'local' : 'github'}${preferLocal && existsSync(local) ? ` (${local})` : ''}`)
-  if (preferLocal && existsSync(local)) {
+  const local = [resolve(localRoot, lib.local), resolve(localRoot, lib.slug)].find(path => existsSync(path))
+  if (preferLocal && !local && process.env.CI) {
+    throw new Error(`docs: ${lib.slug}: no checkout at ${resolve(localRoot, lib.local)} or ${resolve(localRoot, lib.slug)}`)
+  }
+  console.log(`docs: ${lib.slug} source: ${preferLocal && local ? `local (${local})` : 'github'}`)
+  if (preferLocal && local) {
     return { cwd: local }
   }
   return { repository: { url: `https://github.com/${lib.repository}`, branch: lib.branch } }

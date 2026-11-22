@@ -39,8 +39,9 @@ dead link or a page that fails to render fails the pull request.
 ## Secret
 
 `DOCS_DISPATCH_TOKEN`: a fine-grained personal access token limited to the `Ark4ne/docs` repository with the
-*Contents: read and write* permission (required by repository dispatches). Store it as an organisation
-secret shared with the libraries, or as a secret of each library. Creating it is the maintainer's job.
+*Contents: read and write* permission (required by repository dispatches). `Ark4ne` is a user account, not
+an organisation: store it as a secret of each library (*Settings → Secrets and variables → Actions*).
+Creating it is the maintainer's job. Without it, only `publish` fails; `check` does not need it.
 
 ## Registering a library
 
